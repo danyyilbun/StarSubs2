@@ -15,7 +15,7 @@ namespace StarSubs.Controllers
         {
             var order = new OrderManipulation
             {
-                Types = Enum.GetValues(typeof(SubType)).Cast<SubType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
+                 Types = Enum.GetValues(typeof(SubType)).Cast<SubType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
                 Sizes = Enum.GetValues(typeof(SubSize)).Cast<SubSize>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
                  Deals = Enum.GetValues(typeof(MealDeal)).Cast<MealDeal>().Select(x => x.ToString()).ToList()
             };
