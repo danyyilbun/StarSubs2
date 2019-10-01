@@ -1,22 +1,95 @@
 ﻿@using BLL;
 @model OrderManipulation
+<head>
+    <style>
 
+        #type {
+            float: left;
+            width: 50%;
+        }
 
-<h2>Index</h2>
+        #size {
+            float: right;
+            width: 50%;
+        }
 
+        #size_inner {
+            float: right;
+        }
+
+        #marg {
+            margin-left: 50%;
+        }
+
+        #paragraph {
+            float: none;
+            width: 65%;
+            margin: 5%;
+        }
+    </style>
+</head>
+<center>
+    <h2>Welcome to StarSubs</h2>
+</center>
 <form method="post">
+    <div id="type">
+        @Html.ListBoxFor(x => x.Type, Model.Types)
+    </div>
+    <div id="size">
+        @Html.ListBoxFor(x => x.Size, Model.Sizes, new { id = "size_inner" })
+    </div>
+    <br>
+    <div id="paragraph">
 
-    @Html.ListBoxFor(x => x.Type, Model.Types)
-    @Html.ListBoxFor(x => x.Size, Model.Sizes)
+        <p id="marg"> Select a Meal Deal</p>
 
-    @foreach (var dealName in Model.Deals)
-    {
-        <label>
-            @Html.RadioButtonFor(x => x.Deal, dealName)
-            @dealName
-        </label>
-    }
+        <div id="marg">
+            @foreach (var dealName in Model.Deals)
+            {
+                <label>
+                    @Html.RadioButtonFor(x => x.Deal, dealName)
+                    @dealName
+                </label>
+            }
+        </div>
+        <br>
+        <div id="marg">
+            <button class="btn btn-primary" id="submit">Submit</button>
 
-
-    <button class="btn btn-primary" id="submit">Submit</button>
+        </div>
+    </div>
 </form>
+@if (ViewBag.type != null)
+{
+    <p>Type of Sub: @ViewBag.type</p>
+}
+@if (ViewBag.size != null)
+{
+    <p>Size of Sub: @ViewBag.size</p>
+}
+@if (ViewBag.deal != null)
+{
+    <p>Size of Sub: @ViewBag.deal</p>
+}
+
+@if (ViewBag.Price != null)
+{
+<p>Total Price of Sub: @ViewBag.Price.ToString("C2")</p>
+}
+@if (ViewBag.mealDeal != null)
+{
+<p>Price of Meal Deal: @ViewBag.mealDeal.ToString("C2")</p>
+}
+
+@if (ViewBag.Cost != null)
+{
+<p>Cost: @ViewBag.Cost.ToString("C2")</p>
+}
+@if (ViewBag.tax != null)
+{
+<p>Tax: @ViewBag.tax.ToString("C2")</p>
+}
+@if (ViewBag.totalDue != null)
+{
+<p>Total Due: @ViewBag.totalDue.ToString("C2")</p>
+}
