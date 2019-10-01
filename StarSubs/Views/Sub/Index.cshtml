@@ -34,10 +34,10 @@
 </center>
 <form method="post" >
     <div id="type">
-        @Html.ListBoxFor(x => x.Type, Model.Types)
+        @Html.ListBoxFor(x => x.Type, Model.Types, new {required="required" })
     </div>
     <div id="size">
-        @Html.ListBoxFor(x => x.Size, Model.Sizes, new { id = "size_inner" })
+        @Html.ListBoxFor(x => x.Size, Model.Sizes, new { id = "size_inner" , required="required"})
     </div>
     <br>
     <div id="paragraph">
@@ -48,7 +48,7 @@
             @foreach (var dealName in Model.Deals)
             {
                 <label>
-                    @Html.RadioButtonFor(x => x.Deal, dealName)
+                    @Html.RadioButtonFor(x => x.Deal, dealName, new { @checked="checked" })
                      @dealName
                 </label>
             }

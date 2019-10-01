@@ -130,7 +130,7 @@
     <Content Include="Views\Sub\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Sub\Index3.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -141,7 +141,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
