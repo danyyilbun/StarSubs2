@@ -1,5 +1,6 @@
-﻿@using BLL;
-@model OrderManipulation
+﻿@model OrderManipulation
+@using BLL;
+
 <head>
     <style>
 
@@ -31,7 +32,7 @@
 <center>
     <h2>Welcome to StarSubs</h2>
 </center>
-<form method="post">
+<form method="post" >
     <div id="type">
         @Html.ListBoxFor(x => x.Type, Model.Types)
     </div>
@@ -59,37 +60,4 @@
         </div>
     </div>
 </form>
-@if (ViewBag.type != null)
-{
-    <p>Type of Sub: @ViewBag.type</p>
-}
-@if (ViewBag.size != null)
-{
-    <p>Size of Sub: @ViewBag.size</p>
-}
-@if (ViewBag.deal != null)
-{
-    <p>Size of Sub: @ViewBag.deal</p>
-}
 
-@if (ViewBag.Price != null)
-{
-<p>Total Price of Sub: @ViewBag.Price.ToString("C2")</p>
-}
-@if (ViewBag.mealDeal != null)
-{
-<p>Price of Meal Deal: @ViewBag.mealDeal.ToString("C2")</p>
-}
-
-@if (ViewBag.Cost != null)
-{
-<p>Cost: @ViewBag.Cost.ToString("C2")</p>
-}
-@if (ViewBag.tax != null)
-{
-<p>Tax: @ViewBag.tax.ToString("C2")</p>
-}
-@if (ViewBag.totalDue != null)
-{
-<p>Total Due: @ViewBag.totalDue.ToString("C2")</p>
-}

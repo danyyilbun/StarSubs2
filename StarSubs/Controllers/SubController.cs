@@ -31,10 +31,10 @@ namespace StarSubs.Controllers
         {
             var order = new OrderManipulation
             {
-                 
-            Types = Enum.GetValues(typeof(SubType)).Cast<SubType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
+
+                Types = Enum.GetValues(typeof(SubType)).Cast<SubType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
                 Sizes = Enum.GetValues(typeof(SubSize)).Cast<SubSize>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
-                 Deals = Enum.GetValues(typeof(MealDeal)).Cast<MealDeal>().Select(x => x.ToString()).ToList()
+                Deals = Enum.GetValues(typeof(MealDeal)).Cast<MealDeal>().Select(x => x.ToString()).ToList()
             };
             return View(order);
         }
@@ -50,17 +50,60 @@ namespace StarSubs.Controllers
             };
 
 
-            ViewBag.type = orderMan.Type;
-            ViewBag.size = orderMan.Size;
-            ViewBag.deal = orderMan.Deal;
-            ViewBag.mealDeal = deal[orderMan.Deal];
-            ViewBag.Price = (type[orderMan.Type] * size[orderMan.Size]);
-            ViewBag.Cost = (type[orderMan.Type] * size[orderMan.Size]);
-            ViewBag.totalPrice = (type[orderMan.Type] * size[orderMan.Size]) + deal[orderMan.Deal];
-            ViewBag.tax = ViewBag.totalPrice * tax / 100;
-            ViewBag.totalDue = ViewBag.tax + ViewBag.totalPrice;
-            return View(order);
-        }
+            TempData["type"] = orderMan.Type;
+            TempData["size"] = orderMan.Size;
+            TempData["deal"] = orderMan.Deal;
+            TempData["mealDeal"] = deal[orderMan.Deal];
+            TempData["Price"] = (type[orderMan.Type] * size[orderMan.Size]);
+            TempData["Cost"] = (type[orderMan.Type] * size[orderMan.Size]);
+            TempData["totalPrice"] = (type[orderMan.Type] * size[orderMan.Size]) + deal[orderMan.Deal];
 
+
+            double price;
+            Double.TryParse(TempData["totalPrice"].ToString(),out price);
+
+            TempData["tax"] =  price * tax / 100;
+
+            double tx;
+            Double.TryParse(TempData["tax"].ToString(), out tx);
+            
+            Double.TryParse(TempData["totalPrice"].ToString(), out price);
+
+            TempData["totalDue"] = (tx + price);
+            return RedirectToAction("Index3");
+        }
+        public ActionResult Index3()
+        {
+            ViewBag.type = TempData["type"];
+            ViewBag.size = TempData["size"];
+            ViewBag.deal = TempData["deal"];
+
+            double dm;
+            Double.TryParse(TempData["mealDeal"].ToString(), out dm);
+            ViewBag.mealDeal = dm;
+
+            double pc;
+             Double.TryParse(TempData["Price"].ToString(), out pc);
+            ViewBag.Price = pc;
+
+            double cost;
+            Double.TryParse(TempData["Cost"].ToString(), out cost);
+            ViewBag.Cost = cost;
+
+
+            double tpc;
+            Double.TryParse(TempData["totalPrice"].ToString(), out tpc);
+            ViewBag.totalPrice = tpc;
+
+            double tx;
+            Double.TryParse(TempData["tax"].ToString(), out tx);
+            ViewBag.tax = tx;
+
+            double td;
+            Double.TryParse(TempData["totalDue"].ToString(), out td);
+            ViewBag.totalDue = td;
+
+            return View();
+        }
     }
 }
