@@ -45,11 +45,14 @@
         <p id="marg"> Select a Meal Deal</p>
 
         <div id="marg">
+            @Html.EditorFor(Model => Model.Ammount,
+           new { htmlAttributes = new { @type = "number",
+               @min = "0", @step = "1", @value = "1" , required="required" } })
             @foreach (var dealName in Model.Deals)
             {
                 <label>
-                    @Html.RadioButtonFor(x => x.Deal, dealName, new { @checked="checked" })
-                     @dealName
+                    @Html.RadioButtonFor(x => x.Deal, dealName, new { @checked = "checked" })
+                    @dealName
                 </label>
             }
         </div>

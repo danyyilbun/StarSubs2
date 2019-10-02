@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Totals";
+}
+
+<h2>Totals</h2>
+
+We made @Session["totalBought"]
+<br>
+These are the taxes @Session["AllTax"]
+<br>
+These are subs ordered @Session["allOrders"]
+
+@Html.ActionLink("Go Back", "Index", "Sub")

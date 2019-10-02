@@ -17,6 +17,10 @@
 {
     <p>Size of Sub: @ViewBag.deal</p>
 }
+@if (ViewBag.ammount != null)
+{
+    <p>Size of Sub: @ViewBag.ammount</p>
+}
 
 @if (ViewBag.Price != null)
 {
@@ -27,10 +31,6 @@
     <p>Price of Meal Deal: @ViewBag.mealDeal.ToString("C2")</p>
 }
 
-@if (ViewBag.Cost != null)
-{
-    <p>Cost: @ViewBag.Cost.ToString("C2")</p>
-}
 @if (ViewBag.tax != null)
 {
     <p>Tax: @ViewBag.tax.ToString("C2")</p>
@@ -40,3 +40,4 @@
     <p>Total Due: @ViewBag.totalDue.ToString("C2")</p>
 }
 @Html.ActionLink("Go Back", "Index", "Sub")
+@Html.ActionLink("See Total", "Totals", "Home")

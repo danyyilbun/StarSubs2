@@ -19,5 +19,7 @@ namespace BLL
 
         public string Deal { get; set; }
         public List<string> Deals { get; set; }
+
+        public int Ammount { get; set; }
     }
 }

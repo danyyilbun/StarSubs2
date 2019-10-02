@@ -15,6 +15,10 @@ namespace StarSubs.Controllers
             ViewBag.size = TempData["size"];
             ViewBag.deal = TempData["deal"];
 
+
+            ViewBag.ammount = TempData["ammount"];
+
+
             double dm;
             Double.TryParse(TempData["mealDeal"].ToString(), out dm);
             ViewBag.mealDeal = dm;
@@ -22,10 +26,6 @@ namespace StarSubs.Controllers
             double pc;
             Double.TryParse(TempData["Price"].ToString(), out pc);
             ViewBag.Price = pc;
-
-            double cost;
-            Double.TryParse(TempData["Cost"].ToString(), out cost);
-            ViewBag.Cost = cost;
 
 
             double tpc;
@@ -42,5 +42,10 @@ namespace StarSubs.Controllers
 
             return View();
         }
+
+    
+    public ActionResult Totals()
+    {
+        return View();
     }
 }

@@ -13,8 +13,8 @@ namespace StarSubs.Controllers
         int tax = 15;
         Dictionary<string, double> type = new Dictionary<string, double>()
         {
-            { " TheMichaelJackson", 1},{"ThePrince",2 },{"TheBackStreetBoys",3 },{"TheBeyonce",4 },{"TheMadonna",5 }
-
+            { "TheMichaelJackson", 1},{"ThePrince",2 },{"TheBackStreetBoys",3 },{"TheBeyonce",4 },{"TheMadonna",5 }
+              
         };
         Dictionary<string, double> size = new Dictionary<string, double>()
         {
@@ -48,28 +48,51 @@ namespace StarSubs.Controllers
                 Sizes = Enum.GetValues(typeof(SubSize)).Cast<SubSize>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).AsEnumerable(),
                 Deals = Enum.GetValues(typeof(MealDeal)).Cast<MealDeal>().Select(x => x.ToString()).ToList()
             };
-
-
+           
             TempData["type"] = orderMan.Type;
             TempData["size"] = orderMan.Size;
             TempData["deal"] = orderMan.Deal;
+            TempData["ammount"] = orderMan.Ammount;
             TempData["mealDeal"] = deal[orderMan.Deal];
-            TempData["Price"] = (type[orderMan.Type] * size[orderMan.Size]);
-            TempData["Cost"] = (type[orderMan.Type] * size[orderMan.Size]);
-            TempData["totalPrice"] = (type[orderMan.Type] * size[orderMan.Size]) + deal[orderMan.Deal];
-
+            TempData["Price"] = (type[orderMan.Type] * size[orderMan.Size]) * orderMan.Ammount;
+ 
+            TempData["totalPrice"] = ((type[orderMan.Type.ToString()] 
+                * size[orderMan.Size.ToString()]) + deal[orderMan.Deal]) 
+                * orderMan.Ammount;
+           
 
             double price;
             Double.TryParse(TempData["totalPrice"].ToString(),out price);
 
-            TempData["tax"] =  price * tax / 100;
+            TempData["tax"] =  (price * tax / 100);
 
             double tx;
             Double.TryParse(TempData["tax"].ToString(), out tx);
-            
-            Double.TryParse(TempData["totalPrice"].ToString(), out price);
 
-            TempData["totalDue"] = (tx + price);
+   
+            double tb;
+            if (Double.TryParse(Session["totalBought"].ToString(), out tb))
+            { }
+
+
+            double at;
+            if (Double.TryParse(Session["AllTax"].ToString(), out at))
+            { }
+
+
+            if (tb != 0 && Session["allOrders"] != null && at != 0)
+            {
+                Session["totalBought"] = tb + price;
+                Session["allOrders"] += "Order type :" + TempData["type"] +  "Order size:" + TempData["size"] +
+                    "Deal Type:" + TempData["deal"]  + "Order Ammount:" + TempData["ammount"];
+                Session["AllTax"] = at + tx;
+            }
+            else
+            {
+                Session["totalBought"] = 0;
+                Session["allOrders"] = "";
+                Session["AllTax"] = 0;
+            }
             return RedirectToAction("Index","Home");
         }
 
